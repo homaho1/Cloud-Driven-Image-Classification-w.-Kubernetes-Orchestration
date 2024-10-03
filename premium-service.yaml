@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  generateName: premium-service-job
+  labels:
+    purpose: premium-service
+spec:
+  template:
+    spec:
+      containers:
+      - name: premium-service-job
+        image: 905418338938.dkr.ecr.us-east-1.amazonaws.com/mp12-repository:latest
+        resources:
+          limits:
+            cpu: "0.9"  
+        env:
+        - name: DATASET
+          value: "kmnist"
+        - name: TYPE
+          value: "cnn"
+      restartPolicy: Never
+  backoffLimit: 4
